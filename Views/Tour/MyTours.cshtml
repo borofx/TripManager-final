@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TripManager.Models.Tour>
+
+@{
+    ViewData["Title"] = "My Tours";
+}
+
+<h2>Моите турове</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Описание</th>
+            <th>Забележителности</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var tour in Model)
+            {
+                <tr>
+                    <td>@tour.Name</td>
+                    <td>@tour.Description</td>
+                    <td>
+                        @if (tour.TourLandmarks != null && tour.TourLandmarks.Any())
+                        {
+                            var landmarkCount = tour.TourLandmarks.Count();
+                            foreach (var tourLandmark in tour.TourLandmarks)
+                            {
+                                <span>@tourLandmark.Landmark.Name</span>
+                                @if (--landmarkCount > 0)
+                                {
+                                    <span class="fa fa-arrow-right mx-2"></span>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <span>Няма избрани забележителности</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="DeleteTour" asp-controller="Tour" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@tour.Id" />
+                            <button type="submit" class="btn btn-danger">Изтрий</button>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Не сте създали турове.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="CreateTour" class="btn btn-primary">Създай нов тур.</a>
+</div>

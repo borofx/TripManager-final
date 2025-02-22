@@ -1,0 +1,48 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.leaflet-container {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-success {
+    transition: all 0.3s ease;
+}
+
+    .btn-success:disabled {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+.form-group {
+    margin-bottom: 1rem;
+}
+.navbar-nav flex-grow-1{
+    margin-left: auto;
+}
+#map {
+    height: 450px; /* Adjust as needed */
+    width: 100%;
+    border-radius: 8px; /* Rounded corners for the map */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for the map */
+}

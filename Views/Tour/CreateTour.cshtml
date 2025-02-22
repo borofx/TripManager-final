@@ -1,0 +1,51 @@
+﻿@model TripManager.Models.Tour
+@{
+    ViewData["Title"] = "Create Tour";
+}
+<h2>Създай тур</h2>
+
+<form asp-action="CreateTour" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Избери забележителности</label><br />
+        @if (ViewBag.Landmarks != null)
+        {
+            @foreach (var landmark in ViewBag.Landmarks)
+            {
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input"
+                           name="selectedLandmarkIds"
+                           value="@landmark.Id"
+                           id="landmark_@landmark.Id" />
+                    <label class="form-check-label" for="landmark_@landmark.Id">
+                        @landmark.Name
+                    </label>
+                </div>
+            }
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Запиши тур</button>
+</form>
+
+<div>
+    <a asp-action="MyTours">Моите турове</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

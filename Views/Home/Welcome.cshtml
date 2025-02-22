@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<style>
+    .welcome-container {
+        padding: 3rem 1rem;
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .welcome-header {
+        margin-bottom: 3rem;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #4ECDC4;
+        margin-bottom: 1rem;
+    }
+
+    .welcome-footer {
+        margin-top: 4rem;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .welcome-image {
+        max-width: 600px;
+        width: 100%;
+        height: auto;
+        margin: 2rem auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="welcome-container">
+    <div class="welcome-header">
+        <h1 class="display-4">Добре дошли в TripManager</h1>
+        <p class="lead"></p>
+    </div>
+
+    <img src="@Url.Content("~/welcome.jpg")" />
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🗺️</div>
+            <h3>Интерактивен мапинг</h3>
+            <p>Добавяйте забележителности директно от картата с помощта на leaflet.js и OpenStreetMap.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📍</div>
+            <h3>Индивидуално запазване</h3>
+            <p>Програмата създава и съхранява данни за всеки потребител благодарение на asp.net identity.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Планиране на турове</h3>
+            <p>Праволинейно свързване на отделни забележителности (както по филмите с детективи).</p>
+        </div>
+    </div>
+
+    <div class="welcome-footer">
+        <h3>Готови?</h3>
+        <p class="lead">Използвайте навигационното меню и разгледайте TripManager сега!</p>
+    </div>
+</div>

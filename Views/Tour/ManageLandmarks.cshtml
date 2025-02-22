@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TripManager.Models.Landmark>
+
+@{
+    ViewData["Title"] = "Управление на забележителности";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <br />
+    <a href="@Url.Action("Create", "Landmark")" class="btn btn-primary">Добави забележителност</a>
+</p>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>г. ширина</th>
+            <th>г. дължина</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var landmark in Model)
+        {
+            <tr>
+                <td>@landmark.Name</td>
+                <td>@landmark.Latitude</td>
+                <td>@landmark.Longitude</td>
+                <td>
+                    <a href="@Url.Action("EditLandmark", "Tour", new { id = landmark.Id })" class="btn btn-warning me-2">Редактирай</a>
+                    <form action="@Url.Action("DeleteLandmark", "Tour")" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@landmark.Id" />
+                        <button type="submit" class="btn btn-danger">Изтрий</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

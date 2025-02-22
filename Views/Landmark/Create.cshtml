@@ -1,0 +1,115 @@
+﻿@model TripManager.Models.Landmark
+@{
+    ViewData["Title"] = "Add Landmark";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Добави забележителност</h2>
+        <form asp-action="Create" id="landmarkForm">
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="form-label">Име</label>
+                <input asp-for="Name" class="form-control" required />
+            </div>
+            <div class="form-group mb-3">
+                <input asp-for="Latitude" type="hidden" id="latitude" required />
+                <input asp-for="Longitude" type="hidden" id="longitude" required />
+            </div>
+            <p class="text-muted mb-3">Избери локация от картата</p>
+            <button type="submit" class="btn btn-success" id="submitBtn" disabled href =" ">Запази</button>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <div id="map" class="border rounded"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize the map
+            var map = L.map('map').setView([42.6977, 23.3242], 6);
+            var currentMarker = null;
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Load existing landmarks
+            fetch('/api/landmarks')
+                .then(response => response.json())
+                .then(landmarks => {
+                    landmarks.forEach(landmark => {
+                        L.marker([landmark.latitude, landmark.longitude])
+                            .addTo(map)
+                            .bindPopup(`<b>${landmark.name}</b>`);
+                    });
+                });
+
+            // Handle map clicks
+            map.on('click', function (e) {
+                // Remove previous marker if it exists
+                if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                }
+
+                // Add new marker
+                currentMarker = L.marker(e.latlng).addTo(map);
+
+                // Update form fields
+                document.getElementById('latitude').value = e.latlng.lat.toFixed(6);
+                document.getElementById('longitude').value = e.latlng.lng.toFixed(6);
+
+                // Enable submit button
+                document.getElementById('submitBtn').disabled = false;
+            });
+
+            // Add form validation
+            document.getElementById('landmarkForm').addEventListener('submit', function (e) {
+                if (!currentMarker) {
+                    e.preventDefault();
+                    alert('Please select a location on the map');
+                }
+            });
+        });
+    </script>
+}
+<style>
+.col-md-8 #map {
+    height: 450px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-control-container .leaflet-zoom-box {
+    border: 2px solid rgba(0,0,0,0.1);
+}
+
+.leaflet-control-container .leaflet-bar {
+    border-radius: 4px;
+}
+
+.leaflet-control-attribution {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-popup-content {
+    font-size: 14px;
+}
+
+.leaflet-popup-tip {
+    background: white;
+    border: 1px solid #ccc;
+}
+</style>
