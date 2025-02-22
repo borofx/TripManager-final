@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TripManager.Controllers
 {
-    [Authorize]
+    
+    [Authorize(Roles = "Admin")]
     public class LandmarkController : Controller
     {
         private readonly ApplicationDbContext _context;
