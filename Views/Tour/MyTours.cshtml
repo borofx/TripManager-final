@@ -42,10 +42,10 @@
                         }
                     </td>
                     <td>
-                        <a asp-action="DeleteTour" asp-controller="Tour" method="post" class="d-inline">
+                        <form asp-action="DeleteTour" asp-controller="Tour" method="post" class="d-inline">
                             <input type="hidden" name="id" value="@tour.Id" />
                             <button type="submit" class="btn btn-danger">Изтрий</button>
-                        </a>
+                        </form>
                     </td>
                 </tr>
             }
