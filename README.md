@@ -1,7 +1,7 @@
 Installation
 
 Clone the repository
-git clone https://github.com/yourusername/TripManager.git
+git clone https://github.com/borofx/TripManager-final
 
 Navigate to the project directory
 cd TripManager
