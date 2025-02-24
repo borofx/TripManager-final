@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error("No route found");
             }
 
-            // Convert GraphHopper route format to Leaflet format
+            // GraphHopper route format to Leaflet format
             return data.paths[0].points.coordinates.map(coord => [coord[1], coord[0]]);
         } catch (error) {
             console.error("Route calculation error:", error);
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadTours() {
-        // Clear existing routes
+        // Clear routes
         activeRoutes.forEach(route => map.removeLayer(route));
         activeRoutes = [];
 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 ({ lat: landmark.latitude, lng: landmark.longitude })
                             );
 
-                            // Calculate route using GraphHopper
+                            // Calculate using GraphHopper
                             const routeCoordinates = await calculateRoute(waypoints);
 
                             //polyline with the route
@@ -86,10 +86,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                     .bindPopup(`<b>${landmark.name}</b>`);
                             });
 
-                            // tour information
+                            // tour info
                             const tourInfo = `
                                 <b>${tour.name}</b><br>
-                                Landmarks: ${tour.landmarks.map(l => l.name).join(' > ')}
+                                Tour: ${tour.landmarks.map(l => l.name).join(' > ')}
                             `;
                             routeLine.bindPopup(tourInfo);
 
@@ -129,9 +129,9 @@ document.addEventListener("DOMContentLoaded", function () {
     loadLandmarks();
     loadTours();
 
-    // Refresh less frequently
+    //refresh
     setInterval(() => {
         loadLandmarks();
         loadTours();
-    }, 1000);
+    }, 9000);
 });
