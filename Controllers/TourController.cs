@@ -101,7 +101,7 @@ namespace TripManager.Controllers
         public async Task<IActionResult> CreateTour()
         {
             var landmarks = await _context.Landmarks.ToListAsync();
-            ViewBag.Landmarks = landmarks; 
+            ViewBag.Landmarks = landmarks;
             return View();
         }
 
@@ -124,7 +124,6 @@ namespace TripManager.Controllers
             {
                 return Unauthorized();
             }
-
 
             var newTour = new Tour
             {
